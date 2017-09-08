@@ -3,15 +3,13 @@ use super::*;
 use fftw::{Pair, SIGN, FLAG};
 
 pub struct Fftw64 {
-    len: usize,
     pair: Pair<c64, c64>,
     scaler: f64,
 }
 
 impl Fftw64 {
-    fn new(len: usize) -> Self {
+    pub fn new(len: usize) -> Self {
         Self {
-            len: len,
             pair: Pair::c2c_1d(len, SIGN::FFTW_FORWARD, FLAG::FFTW_ESTIMATE),
             scaler: 1.0 / len as f64,
         }

@@ -4,7 +4,6 @@ use rustfft::*;
 use std::sync::Arc;
 
 pub struct RustFft<T> {
-    len: usize,
     forward: Arc<FFT<T>>,
     backward: Arc<FFT<T>>,
     scaler: f64,
@@ -13,7 +12,6 @@ pub struct RustFft<T> {
 impl<T: FFTnum> RustFft<T> {
     pub fn new(len: usize) -> Self {
         Self {
-            len: len,
             forward: FFTplanner::new(false).plan_fft(len),
             backward: FFTplanner::new(true).plan_fft(len),
             scaler: 1.0 / len as f64,
