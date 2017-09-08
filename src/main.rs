@@ -36,9 +36,11 @@ fn test_dft<A: DftAlgorithm>(arr: &[c64], mut algorithm: A, rep: usize) -> f64 {
 }
 
 fn main() {
+    let rep = 100;
     println!("n,chfft,fftw,rustfft");
-    for a in 1..14 {
+    for a in 1..20 {
         let n: usize = 2.pow(a);
+        eprintln!("n = {}", n);
         let a = vec![c64::new(1.0, 0.0); n];
         let chfft = chfft::CFft1D::with_len(n);
         let fftw = impl_fftw::Fftw64::new(n);
@@ -46,9 +48,9 @@ fn main() {
         println!(
             "{},{},{},{}",
             n,
-            test_dft(&a, chfft, 10),
-            test_dft(&a, fftw, 10),
-            test_dft(&a, rustfft, 10),
+            test_dft(&a, chfft, rep),
+            test_dft(&a, fftw, rep),
+            test_dft(&a, rustfft, rep),
         );
     }
 }
